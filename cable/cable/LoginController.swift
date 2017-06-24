@@ -124,7 +124,7 @@ class LoginController: UIViewController {
   func setupHeaderContainer() {
     headerContainer.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     headerContainer.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-    headerContainer.heightAnchor.constraint(equalToConstant: 58).isActive = true
+    headerContainer.heightAnchor.constraint(equalToConstant: 65).isActive = true
   }
   
   func setupHeaderSeparator() {

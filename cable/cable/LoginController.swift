@@ -107,15 +107,13 @@ class LoginController: UIViewController {
     view.backgroundColor = .white
     
     view.addSubview(headerContainer)
-    view.addSubview(headerSeparator)
     
     view.addSubview(inputsContainerView)
     view.addSubview(registerButton)
     
     setupHeaderContainer()
-    setupHeaderSeparator()
     
-    setupInputs()
+    setupInputsContainer()
     setupRegisterButton()
   }
   
@@ -125,9 +123,9 @@ class LoginController: UIViewController {
     headerContainer.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     headerContainer.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     headerContainer.heightAnchor.constraint(equalToConstant: 65).isActive = true
-  }
-  
-  func setupHeaderSeparator() {
+    
+    headerContainer.addSubview(headerSeparator)
+    
     headerSeparator.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor).isActive = true
     headerSeparator.widthAnchor.constraint(equalTo: headerContainer.widthAnchor).isActive = true
     headerSeparator.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
@@ -135,7 +133,7 @@ class LoginController: UIViewController {
   
   // Login/Register section
   
-  func setupInputs() {
+  func setupInputsContainer() {
     inputsContainerView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: 16).isActive = true
     inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -32).isActive = true

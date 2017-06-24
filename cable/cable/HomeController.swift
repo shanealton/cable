@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
   
@@ -15,8 +16,16 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupFirebaseDB()
+    
     setupNavBar()
     setupCollectionView()
+  }
+  
+  // Setup database for Firebase app.
+  func setupFirebaseDB() {
+//    let ref = FIRDatabase.database().reference(fromURL: "https://cable-610b1.firebaseio.com/")
+//    ref.updateChildValues(["someValue": 123123])
   }
   
   fileprivate func setupNavBar() {

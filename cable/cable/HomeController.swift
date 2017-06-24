@@ -24,8 +24,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   
   // Setup database for Firebase app.
   func setupFirebaseDB() {
-//    let ref = FIRDatabase.database().reference(fromURL: "https://cable-610b1.firebaseio.com/")
-//    ref.updateChildValues(["someValue": 123123])
+
   }
   
   fileprivate func setupNavBar() {

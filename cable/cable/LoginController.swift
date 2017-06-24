@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginController: UIViewController {
   
@@ -88,16 +89,47 @@ class LoginController: UIViewController {
   
   // Login/Register Button
   
-  let registerButton: UIButton = {
+  lazy var registerButton: UIButton = {
     let button = UIButton(type: .system)
     button.backgroundColor = .rgb(red: 90, green: 97, blue: 117)
     button.layer.cornerRadius = 2
     button.setTitle("Register", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
     button.tintColor = .white
+    button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()
+  
+  func handleRegister() {
+    guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
+      print("invalid email or password")
+      return
+    }
+    FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: {(user: FIRUser?, error) in
+      if error != nil {
+        print(error ?? "Error")
+        return
+      }
+      
+      // reference by user id:
+      guard let uid = user?.uid else { return }
+      
+      //successfully authenticated user
+      let ref = FIRDatabase.database().reference(fromURL: "https://cable-610b1.firebaseio.com/")
+      let usersReference = ref.child("users").child(uid)
+      let values = ["name": name, "email": email]
+      usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+        if err != nil {
+          print(err ?? "Error")
+          return
+        }
+        print("Successfully saved new user into Firebase DB.")
+      })
+      
+      print("Authenticated User")
+    })
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()

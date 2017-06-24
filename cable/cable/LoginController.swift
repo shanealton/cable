@@ -30,7 +30,6 @@ class LoginController: UIViewController {
   
   let inputsContainerView: UIView = {
     let view = UIView()
-    //view.backgroundColor = .lightGray
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()

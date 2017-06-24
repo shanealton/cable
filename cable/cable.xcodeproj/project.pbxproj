@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FF7371EFD98BA00136C4B /* LoginController.swift */; };
+		C16FF73B1EFDF4BC00136C4B /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */; };
 		C1B0A0E71EFC70EA003BEE91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A0E61EFC70EA003BEE91 /* AppDelegate.swift */; };
 		C1B0A0E91EFC70EA003BEE91 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A0E81EFC70EA003BEE91 /* HomeController.swift */; };
 		C1B0A0EE1EFC70EA003BEE91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1B0A0ED1EFC70EA003BEE91 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		C16FF7371EFD98BA00136C4B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		C1B0A0E31EFC70EA003BEE91 /* cable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B0A0E61EFC70EA003BEE91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C1B0A0E81EFC70EA003BEE91 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,14 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		C16FF7391EFDF4AB00136C4B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C1B0A0DA1EFC70EA003BEE91 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		C1B0A0E51EFC70EA003BEE91 /* cable */ = {
 			isa = PBXGroup;
 			children = (
+				C16FF7391EFDF4AB00136C4B /* View */,
 				C16FF7361EFD989600136C4B /* Controller */,
 				C1B0A0E61EFC70EA003BEE91 /* AppDelegate.swift */,
 				C1B0A0ED1EFC70EA003BEE91 /* Assets.xcassets */,
@@ -281,6 +292,7 @@
 				C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */,
 				C1B0A1161EFC74AF003BEE91 /* Extensions.swift in Sources */,
 				C1B0A0E71EFC70EA003BEE91 /* AppDelegate.swift in Sources */,
+				C16FF73B1EFDF4BC00136C4B /* HomeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

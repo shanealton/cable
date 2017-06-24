@@ -10,7 +10,7 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
   
-  fileprivate let cellId = "cellId"
+  private let cellId = "cellId"
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,14 +23,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
   }
   
-  func handleLogout() {
-    let loginController = LoginController()
-    present(loginController, animated: true, completion: nil)
-  }
-  
   fileprivate func setupCollectionView() {
     self.collectionView?.register(HomeCell.self, forCellWithReuseIdentifier: "cellId")
     collectionView?.backgroundColor = .white
+  }
+  
+  func handleLogout() {
+    let loginController = LoginController()
+    present(loginController, animated: true, completion: nil)
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -44,15 +44,5 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
     return cell
-  }
-  
- 
-}
-
-class HomeCell: BaseCell {
-  
-  override func setupViews() {
-    super.setupViews()
-
   }
 }

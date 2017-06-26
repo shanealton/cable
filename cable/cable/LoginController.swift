@@ -20,6 +20,23 @@ class LoginController: UIViewController {
     return view
   }()
   
+  lazy var segmentedControl: UISegmentedControl = {
+    let control = UISegmentedControl(items: ["Login", "Register"])
+    control.selectedSegmentIndex = 1
+    control.tintColor = .rgb(red: 90, green: 97, blue: 117)
+    control.layer.borderColor = UIColor.rgb(red: 90, green: 97, blue: 117).cgColor
+    control.addTarget(self, action: #selector(handleControlChange), for: .valueChanged)
+    control.translatesAutoresizingMaskIntoConstraints = false
+    return control
+  }()
+  
+  func handleControlChange() {
+    let title = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)
+    registerButton.setTitle(title, for: .normal)
+  }
+  
+  // 130 122 210
+  
   let headerSeparator: UIView = {
     let view = UIView()
     view.backgroundColor = .rgb(red: 235, green: 232, blue: 228)
@@ -153,11 +170,19 @@ class LoginController: UIViewController {
     headerContainer.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
     headerContainer.heightAnchor.constraint(equalToConstant: 65).isActive = true
     
+    headerContainer.addSubview(segmentedControl)
     headerContainer.addSubview(headerSeparator)
     
     headerSeparator.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor).isActive = true
     headerSeparator.widthAnchor.constraint(equalTo: headerContainer.widthAnchor).isActive = true
     headerSeparator.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
+    
+    setupSegmentedControl()
+  }
+  
+  func setupSegmentedControl() {
+    segmentedControl.centerXAnchor.constraint(equalTo: headerContainer.centerXAnchor).isActive = true
+    segmentedControl.centerYAnchor.constraint(equalTo: headerContainer.centerYAnchor, constant: 5).isActive = true
   }
   
   // Login/Register section

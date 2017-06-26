@@ -26,11 +26,22 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   func handleAuth() {
     if FIRAuth.auth()?.currentUser?.uid == nil {
       perform(#selector(handleLogout), with: nil, afterDelay: 0)
+    } else {
+      guard let uid = FIRAuth.auth()?.currentUser?.uid else { return }
+      FIRDatabase.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        print(snapshot)
+        if let dictionary = snapshot.value as? [String: AnyObject] {
+          self.navigationItem.title = dictionary["name"] as? String
+        }
+        
+      })
     }
   }
   
   fileprivate func setupNavBar() {
+    self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 130, green: 122, blue: 210)
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(handleNewMessage))
   }
   
   fileprivate func setupCollectionView() {
@@ -46,6 +57,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     let loginController = LoginController()
     present(loginController, animated: false, completion: nil)
+  }
+  
+  func handleNewMessage() {
+    let newMessageController = NewMessageController(collectionViewLayout: UICollectionViewFlowLayout())
+    present(UINavigationController(rootViewController: newMessageController), animated: true, completion: nil)
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -39,6 +39,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   func handleLogout() {
+    // Show LoginController on user sign-out.
     do { try FIRAuth.auth()?.signOut() } catch let err {
       print(err)
     }

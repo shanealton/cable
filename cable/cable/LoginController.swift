@@ -132,10 +132,33 @@ class LoginController: UIViewController {
     button.setTitle("Register", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
     button.tintColor = .white
-    button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+    button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()
+  
+  func handleLoginRegister() {
+    if segmentedControl.selectedSegmentIndex == 0 {
+      handleLogin()
+    } else {
+      handleRegister()
+    }
+  }
+  
+  func handleLogin() {
+    guard let email = emailTextField.text, let password = passwordTextField.text else {
+      print("Form is not valid. Please enter your email and password.")
+      return
+    }
+    FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, err) in
+      if err != nil {
+        print(err ?? "Error:")
+        return
+      }
+      print("User Login successful")
+      self.dismiss(animated: true, completion: nil)
+    })
+  }
   
   func handleRegister() {
     guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {

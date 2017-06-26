@@ -141,7 +141,7 @@ class NewMessageCell: BaseCell {
   
   func setupSeparator() {
     separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+    separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 61).isActive = true
     separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     separator.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
   }

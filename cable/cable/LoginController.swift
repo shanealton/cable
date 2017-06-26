@@ -156,7 +156,12 @@ class LoginController: UIViewController {
         return
       }
       print("User Login successful")
-      self.dismiss(animated: true, completion: nil)
+      
+      // Add a pause to prevent visibility of a previously logged in users messages and info.
+      let when = DispatchTime.now() + 1
+      DispatchQueue.main.asyncAfter(deadline: when) {
+        self.dismiss(animated: true, completion: nil)
+      }
     })
   }
   

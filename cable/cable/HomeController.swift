@@ -15,11 +15,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    handleAuth()
-    
+
     setupNavBar()
     setupCollectionView()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(false)
+    handleAuth()
   }
   
   // Check if user is currently logged in.
@@ -33,7 +36,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         if let dictionary = snapshot.value as? [String: AnyObject] {
           self.navigationItem.title = dictionary["name"] as? String
         }
-        
       })
     }
   }
@@ -50,7 +52,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   func handleLogout() {
-    // Show LoginController on user sign-out.
     do { try FIRAuth.auth()?.signOut() } catch let err {
       print(err)
     }

@@ -23,8 +23,8 @@ class LoginController: UIViewController {
   lazy var segmentedControl: UISegmentedControl = {
     let control = UISegmentedControl(items: ["Login", "Register"])
     control.selectedSegmentIndex = 1
-    control.tintColor = .rgb(red: 90, green: 97, blue: 117)
-    control.layer.borderColor = UIColor.rgb(red: 90, green: 97, blue: 117).cgColor
+    control.tintColor = .rgb(red: 130, green: 122, blue: 210)
+    control.layer.borderColor = UIColor.rgb(red: 130, green: 122, blue: 210).cgColor
     control.addTarget(self, action: #selector(handleControlChange), for: .valueChanged)
     control.translatesAutoresizingMaskIntoConstraints = false
     return control
@@ -50,8 +50,6 @@ class LoginController: UIViewController {
     passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: segmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
     passwordTextFieldHeightAnchor?.isActive = true
   }
-  
-  // 130 122 210
   
   let headerSeparator: UIView = {
     let view = UIView()
@@ -125,7 +123,7 @@ class LoginController: UIViewController {
   
   lazy var registerButton: UIButton = {
     let button = UIButton(type: .system)
-    button.backgroundColor = .rgb(red: 90, green: 97, blue: 117)
+    button.backgroundColor = .rgb(red: 130, green: 122, blue: 210)
     button.layer.cornerRadius = 2
     button.setTitle("Register", for: .normal)
     button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
@@ -182,10 +180,10 @@ class LoginController: UIViewController {
   
   // Dynamic height constraints for login/register fields.
   
-  var inputsContainerViewHeightAnchor: NSLayoutConstraint?
-  var nameTextFieldHeightAnchor: NSLayoutConstraint?
-  var emailTextFieldHeightAnchor: NSLayoutConstraint?
-  var passwordTextFieldHeightAnchor: NSLayoutConstraint?
+  var inputsContainerViewHeightAnchor: NSLayoutConstraint?,
+      nameTextFieldHeightAnchor:       NSLayoutConstraint?,
+      emailTextFieldHeightAnchor:      NSLayoutConstraint?,
+      passwordTextFieldHeightAnchor:   NSLayoutConstraint?
   
   // Header section
   

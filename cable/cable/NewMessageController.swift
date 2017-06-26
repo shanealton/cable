@@ -46,7 +46,7 @@ class NewMessageController: UICollectionViewController, UICollectionViewDelegate
   }
   
   fileprivate func setupCollectionView() {
-    self.collectionView?.register(NewMessageCell.self, forCellWithReuseIdentifier: "cellId")
+    self.collectionView?.register(NewMessageCell.self, forCellWithReuseIdentifier: cellId)
     collectionView?.backgroundColor = .white
   }
   
@@ -66,6 +66,7 @@ class NewMessageController: UICollectionViewController, UICollectionViewDelegate
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! NewMessageCell
     let user = users[indexPath.item]
     cell.nameLabel.text = user.name
+    cell.detailLabel.text = user.email
     return cell
   }
   
@@ -87,6 +88,15 @@ class NewMessageCell: BaseCell {
   let nameLabel: UILabel = {
     let label = UILabel()
     label.text = "Username"
+    label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
+  let detailLabel: UILabel = {
+    let label = UILabel()
+    label.text = "Email"
+    label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -103,10 +113,12 @@ class NewMessageCell: BaseCell {
     
     addSubview(avatar)
     addSubview(nameLabel)
+    addSubview(detailLabel)
     addSubview(separator)
     
     setupAvatar()
     setupName()
+    setupDetail()
     setupSeparator()
   }
   
@@ -118,8 +130,13 @@ class NewMessageCell: BaseCell {
   }
   
   func setupName() {
-    nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    nameLabel.topAnchor.constraint(equalTo: avatar.topAnchor).isActive = true
     nameLabel.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 10).isActive = true
+  }
+  
+  func setupDetail() {
+    detailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4).isActive = true
+    detailLabel.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 10).isActive = true
   }
   
   func setupSeparator() {

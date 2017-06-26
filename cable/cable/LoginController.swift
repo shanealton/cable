@@ -34,18 +34,22 @@ class LoginController: UIViewController {
     let title = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex)
     registerButton.setTitle(title, for: .normal)
     
+    // Dynamic height of inputs container
     inputsContainerViewHeightAnchor?.constant = segmentedControl.selectedSegmentIndex == 0 ? 100 : 150
     
+    // Dynamic height for name field
     nameTextFieldHeightAnchor?.isActive = false
     nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: segmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3)
     nameTextFieldHeightAnchor?.isActive = true
     
     nameSeparator.isHidden = segmentedControl.selectedSegmentIndex == 0 ? true : false
     
+    // Dynamic height for email field
     emailTextFieldHeightAnchor?.isActive = false
     emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: segmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
     emailTextFieldHeightAnchor?.isActive = true
     
+    // Dynamic height for password field
     passwordTextFieldHeightAnchor?.isActive = false
     passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputsContainerView.heightAnchor, multiplier: segmentedControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
     passwordTextFieldHeightAnchor?.isActive = true
@@ -157,6 +161,7 @@ class LoginController: UIViewController {
           return
         }
         print("Successfully saved new user into Firebase DB.")
+        self.dismiss(animated: true, completion: nil)
       })
       
       print("Authenticated User")

@@ -16,15 +16,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupFirebaseDB()
+    handleAuth()
     
     setupNavBar()
     setupCollectionView()
   }
   
-  // Setup database for Firebase app.
-  func setupFirebaseDB() {
-
+  // Check if user is currently logged in.
+  func handleAuth() {
+    if FIRAuth.auth()?.currentUser?.uid == nil {
+      perform(#selector(handleLogout), with: nil, afterDelay: 0)
+    }
   }
   
   fileprivate func setupNavBar() {
@@ -37,8 +39,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   func handleLogout() {
+    do { try FIRAuth.auth()?.signOut() } catch let err {
+      print(err)
+    }
+    
     let loginController = LoginController()
-    present(loginController, animated: true, completion: nil)
+    present(loginController, animated: false, completion: nil)
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

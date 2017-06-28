@@ -126,10 +126,10 @@
 		C16FF7361EFD989600136C4B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C116A2091F032BF8002C8531 /* Login */,
 				C1B0A0E81EFC70EA003BEE91 /* HomeController.swift */,
-				C1A450101F00CE1500ED066C /* NewMessageController.swift */,
-				C116A20A1F035D89002C8531 /* AccountController.swift */,
+				C116A2091F032BF8002C8531 /* Login */,
+				C1AD8A301F03FF9000D2DF7A /* Message */,
+				C1AD8A2F1F03FF7500D2DF7A /* Settings */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -148,6 +148,22 @@
 				C1A450131F00D38B00ED066C /* User.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		C1AD8A2F1F03FF7500D2DF7A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C116A20A1F035D89002C8531 /* AccountController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		C1AD8A301F03FF9000D2DF7A /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				C1A450101F00CE1500ED066C /* NewMessageController.swift */,
+			);
+			name = Message;
 			sourceTree = "<group>";
 		};
 		C1B0A0DA1EFC70EA003BEE91 = {

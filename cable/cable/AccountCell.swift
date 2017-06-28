@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class AccountHeaderCell: BaseCell {
   
   override func setupViews() {

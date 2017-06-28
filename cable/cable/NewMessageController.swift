@@ -12,7 +12,6 @@ import Firebase
 class NewMessageController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
   
   private let cellId = "cellId"
-  
   var users = [User]()
   
   override func viewDidLoad() {
@@ -24,34 +23,15 @@ class NewMessageController: UICollectionViewController, UICollectionViewDelegate
     fetchUser()
   }
   
-  func fetchUser() {
-    FIRDatabase.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
-      
-      if let dictionary = snapshot.value as? [String: AnyObject] {
-        let user = User()
-        user.setValuesForKeys(dictionary)
-        self.users.append(user)
-        DispatchQueue.main.async(execute: {
-          self.collectionView?.reloadData()
-        })
-      }
-      
-    })
-  }
-  
   fileprivate func setupNavBar() {
     self.navigationItem.title = "New Message"
     self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 130, green: 122, blue: 210)
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleDismiss))
   }
   
   fileprivate func setupCollectionView() {
     self.collectionView?.register(NewMessageCell.self, forCellWithReuseIdentifier: cellId)
     collectionView?.backgroundColor = .white
-  }
-  
-  func handleCancel() {
-    self.dismiss(animated: true, completion: nil)
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

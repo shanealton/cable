@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		89ABC41B84E9ECEB27526ABD /* Pods_cable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B28B154A0D823E48A48D4512 /* Pods_cable.framework */; };
+		C116A2081F032BE5002C8531 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116A2071F032BE5002C8531 /* LoginController+handlers.swift */; };
 		C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FF7371EFD98BA00136C4B /* LoginController.swift */; };
 		C16FF73B1EFDF4BC00136C4B /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */; };
 		C16FF73D1EFF1CEC00136C4B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C16FF73C1EFF1CEC00136C4B /* GoogleService-Info.plist */; };
@@ -43,6 +44,7 @@
 		47B66ACF384AA622F7518386 /* Pods_cableUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cableUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A7FBFA21CA98BBCE20FCE7D /* Pods-cable.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cable.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cable/Pods-cable.debug.xcconfig"; sourceTree = "<group>"; };
 		B28B154A0D823E48A48D4512 /* Pods_cable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C116A2071F032BE5002C8531 /* LoginController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		C16FF7371EFD98BA00136C4B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		C16FF73C1EFF1CEC00136C4B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -110,11 +112,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C116A2091F032BF8002C8531 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C16FF7371EFD98BA00136C4B /* LoginController.swift */,
+				C116A2071F032BE5002C8531 /* LoginController+handlers.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		C16FF7361EFD989600136C4B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C116A2091F032BF8002C8531 /* Login */,
 				C1B0A0E81EFC70EA003BEE91 /* HomeController.swift */,
-				C16FF7371EFD98BA00136C4B /* LoginController.swift */,
 				C1A450101F00CE1500ED066C /* NewMessageController.swift */,
 			);
 			name = Controller;
@@ -387,6 +398,7 @@
 			files = (
 				C1B0A0E91EFC70EA003BEE91 /* HomeController.swift in Sources */,
 				C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */,
+				C116A2081F032BE5002C8531 /* LoginController+handlers.swift in Sources */,
 				C1A450111F00CE1500ED066C /* NewMessageController.swift in Sources */,
 				C1B0A1161EFC74AF003BEE91 /* Extensions.swift in Sources */,
 				C1B0A0E71EFC70EA003BEE91 /* AppDelegate.swift in Sources */,

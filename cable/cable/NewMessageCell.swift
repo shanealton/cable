@@ -56,26 +56,19 @@ class NewMessageCell: BaseCell {
   }
   
   func setupAvatar() {
-    avatar.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    avatar.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-    avatar.widthAnchor.constraint(equalToConstant: 35).isActive = true
-    avatar.heightAnchor.constraint(equalToConstant: 35).isActive = true
+    avatar.anchorCenterYToSuperview()
+    avatar.anchor(left: leftAnchor, leftConstant: 16, widthConstant: 35, heightConstant: 35)
   }
   
   func setupName() {
-    nameLabel.topAnchor.constraint(equalTo: avatar.topAnchor).isActive = true
-    nameLabel.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 10).isActive = true
+    nameLabel.anchor(avatar.topAnchor, left: avatar.rightAnchor, leftConstant: 10)
   }
   
   func setupDetail() {
-    detailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4).isActive = true
-    detailLabel.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 10).isActive = true
+    detailLabel.anchor(nameLabel.bottomAnchor, left: avatar.rightAnchor, topConstant: 4, leftConstant: 10)
   }
   
   func setupSeparator() {
-    separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 61).isActive = true
-    separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-    separator.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
+    separator.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 61, heightConstant: 0.75)
   }
 }

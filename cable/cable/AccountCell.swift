@@ -48,9 +48,6 @@ class AccountCell: BaseCell {
   }
   
   func setupSeparator() {
-    separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-    separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-    separator.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
+    separator.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 16, heightConstant: 0.75)
   }
 }

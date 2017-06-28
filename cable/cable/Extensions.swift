@@ -9,6 +9,8 @@
 import UIKit
 
 // UIView Anchors extensions
+// Copyright (c) 2016 Brian Voong <bhlvoong@gmail.com>
+// github.com/bhlvoong/LBTAComponents/blob/master/LICENSE
 extension UIView {
   public func fillSuperview() {
     translatesAutoresizingMaskIntoConstraints = false

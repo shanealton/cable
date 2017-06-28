@@ -46,7 +46,7 @@ class AccountController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
+    return 5
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -58,19 +58,40 @@ class AccountController: UICollectionViewController, UICollectionViewDelegateFlo
     return cell
   }
   
-  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
 }
 
 class AccountHeaderCell: BaseCell {
   
   override func setupViews() {
     super.setupViews()
+    backgroundColor = .rgb(red: 235, green: 232, blue: 228)
   }
 }
 
 class AccountCell: BaseCell {
   
+  let separator: UIView = {
+    let view = UIView()
+    view.backgroundColor = .rgb(red: 235, green: 232, blue: 228)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
   override func setupViews() {
     super.setupViews()
+    
+    addSubview(separator)
+    
+    setupSeparator()
+  }
+  
+  func setupSeparator() {
+    separator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    separator.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
+    separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+    separator.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
   }
 }

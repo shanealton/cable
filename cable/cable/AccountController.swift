@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class AccountController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
   
   private let cellId = "cellId"
   private let headerId = "headerId"
+  
+  let settings = ["Profile", "Account Settings", "Privacy", "Sign Out"]
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -46,7 +49,7 @@ class AccountController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 5
+    return 4
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -55,7 +58,24 @@ class AccountController: UICollectionViewController, UICollectionViewDelegateFlo
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AccountCell
+    cell.settingLabel.text = settings[indexPath.item]
     return cell
+  }
+  
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if indexPath.item == 3 {
+      handleLogout()
+    }
+  }
+  
+  func handleLogout() {
+    do { try FIRAuth.auth()?.signOut() } catch let err {
+      print(err)
+    }
+    
+    let loginController = LoginController()
+    self.dismiss(animated: false, completion: nil)
+    present(loginController, animated: false, completion: nil)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -73,6 +93,14 @@ class AccountHeaderCell: BaseCell {
 
 class AccountCell: BaseCell {
   
+  let settingLabel: UILabel = {
+    let label = UILabel()
+    label.text = "Setting"
+    label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
   let separator: UIView = {
     let view = UIView()
     view.backgroundColor = .rgb(red: 235, green: 232, blue: 228)
@@ -83,9 +111,16 @@ class AccountCell: BaseCell {
   override func setupViews() {
     super.setupViews()
     
+    addSubview(settingLabel)
     addSubview(separator)
     
+    setupSettingLabel()
     setupSeparator()
+  }
+  
+  func setupSettingLabel() {
+    settingLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    settingLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
   }
   
   func setupSeparator() {

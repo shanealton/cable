@@ -21,7 +21,7 @@ class NewMessageCell: BaseCell {
   let nameLabel: UILabel = {
     let label = UILabel()
     label.text = "Username"
-    label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+    label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -29,7 +29,7 @@ class NewMessageCell: BaseCell {
   let detailLabel: UILabel = {
     let label = UILabel()
     label.text = "Email"
-    label.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightLight)
+    label.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()

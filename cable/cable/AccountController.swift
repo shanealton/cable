@@ -34,16 +34,28 @@ class AccountController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    return CGSize(width: view.frame.width, height: 100)
+    return CGSize(width: view.frame.width, height: 75)
   }
   
   override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! AccountHeaderCell
+    
+    guard let uid = FIRAuth.auth()?.currentUser?.uid else { return header }
+    
+    FIRDatabase.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+      print(snapshot)
+      
+      if let dictionary = snapshot.value as? [String: AnyObject] {
+        header.nameLabel.text = dictionary["name"] as? String
+        header.emailLabel.text = dictionary["email"] as? String
+      }
+    })
+    
     return header
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    return 0
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

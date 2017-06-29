@@ -13,7 +13,7 @@ class NewMessageCell: BaseCell {
   let avatar: UIImageView = {
     let image = UIImageView()
     image.backgroundColor = .rgb(red: 235, green: 232, blue: 228)
-    image.layer.cornerRadius = 17.5
+    image.layer.cornerRadius = 20
     image.translatesAutoresizingMaskIntoConstraints = false
     return image
   }()
@@ -57,7 +57,7 @@ class NewMessageCell: BaseCell {
   
   func setupAvatar() {
     avatar.anchorCenterYToSuperview()
-    avatar.anchor(left: leftAnchor, leftConstant: 16, widthConstant: 35, heightConstant: 35)
+    avatar.anchor(left: leftAnchor, leftConstant: 18, widthConstant: 40, heightConstant: 40)
   }
   
   func setupName() {
@@ -69,6 +69,6 @@ class NewMessageCell: BaseCell {
   }
   
   func setupSeparator() {
-    separator.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 61, heightConstant: 0.75)
+    separator.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 68, heightConstant: 0.75)
   }
 }

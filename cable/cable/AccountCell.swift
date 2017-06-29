@@ -95,7 +95,7 @@ class AccountHeaderCell: BaseCell {
   }
   
   func setupEmailLabel() {
-    emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5).isActive = true
+    emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4).isActive = true
     emailLabel.leftAnchor.constraint(equalTo: imageContainer.rightAnchor, constant: 10).isActive = true
   }
 }

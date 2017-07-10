@@ -12,6 +12,7 @@ import Firebase
 class NewMessageController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
   
   private let cellId = "cellId"
+  var homeController: HomeController?
   var users = [User]()
   
   override func viewDidLoad() {
@@ -48,6 +49,13 @@ class NewMessageController: UICollectionViewController, UICollectionViewDelegate
     cell.nameLabel.text = user.name
     cell.detailLabel.text = user.email
     return cell
+  }
+  
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    dismiss(animated: true) { 
+      let user = self.users[indexPath.item]
+      self.homeController?.handleChatLog(user: user)
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

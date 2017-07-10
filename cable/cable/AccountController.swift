@@ -22,7 +22,7 @@ class AccountController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   fileprivate func setupNavBar() {
-    self.navigationItem.title = "Settings"
+    self.navigationItem.title = "Account Settings"
     self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 130, green: 122, blue: 210)
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleDismiss))
   }

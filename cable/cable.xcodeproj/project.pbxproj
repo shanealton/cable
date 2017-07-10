@@ -27,6 +27,7 @@
 		C1B0A0FC1EFC70EA003BEE91 /* cableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A0FB1EFC70EA003BEE91 /* cableTests.swift */; };
 		C1B0A1071EFC70EA003BEE91 /* cableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A1061EFC70EA003BEE91 /* cableUITests.swift */; };
 		C1B0A1161EFC74AF003BEE91 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A1151EFC74AF003BEE91 /* Extensions.swift */; };
+		C1CA2A171F1401750016BD3B /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA2A161F1401750016BD3B /* ChatLogController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		C1B0A1061EFC70EA003BEE91 /* cableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cableUITests.swift; sourceTree = "<group>"; };
 		C1B0A1081EFC70EA003BEE91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B0A1151EFC74AF003BEE91 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C1CA2A161F1401750016BD3B /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		C4A6C75A2D90774055CF2FEC /* Pods-cable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cable.release.xcconfig"; path = "Pods/Target Support Files/Pods-cable/Pods-cable.release.xcconfig"; sourceTree = "<group>"; };
 		F0666204C43542E1E25A7C34 /* Pods_cableTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cableTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -141,6 +143,7 @@
 				C116A2091F032BF8002C8531 /* Login */,
 				C1AD8A301F03FF9000D2DF7A /* Message */,
 				C1AD8A2F1F03FF7500D2DF7A /* Settings */,
+				C1CA2A161F1401750016BD3B /* ChatLogController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1CA2A171F1401750016BD3B /* ChatLogController.swift in Sources */,
 				C1B0A0E91EFC70EA003BEE91 /* HomeController.swift in Sources */,
 				C1AD8A3A1F0412D200D2DF7A /* HomeController+handlers.swift in Sources */,
 				C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */,

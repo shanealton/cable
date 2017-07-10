@@ -40,7 +40,15 @@ extension HomeController {
   // Present the new message controller.
   func handleNewMessage() {
     let newMessageController = NewMessageController(collectionViewLayout: UICollectionViewFlowLayout())
+    newMessageController.homeController = self
     present(UINavigationController(rootViewController: newMessageController), animated: true, completion: nil)
+  }
+  
+  //Chat log controller
+  func handleChatLog(user: User) {
+    let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+    chatLogController.user = user
+    navigationController?.pushViewController(chatLogController, animated: true)
   }
   
   // Present the account settings controller.

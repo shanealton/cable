@@ -12,12 +12,15 @@ import Firebase
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
   
   private let cellId = "cellId"
+  var messages = [Message]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
     setupNavBar()
     setupCollectionView()
+    
+    observeMessages()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +42,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
+    return messages.count
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -48,6 +51,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
+    let message = messages[indexPath.item]
+    cell.messageText.text = message.text
     return cell
   }
 }

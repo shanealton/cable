@@ -27,6 +27,20 @@ extension HomeController {
     }
   }
   
+  func observeMessages() {
+    let ref = FIRDatabase.database().reference().child("messages")
+    ref.observe(.childAdded, with: { (snapshot) in
+      if let dictionary = snapshot.value as? [String: AnyObject] {
+        let message = Message()
+        message.setValuesForKeys(dictionary)
+        self.messages.append(message)
+        DispatchQueue.main.async(execute: {
+          self.collectionView?.reloadData()
+        })
+      }
+    }, withCancel: nil)
+  }
+  
   // Logout the current user.
   func handleLogout() {
     do { try FIRAuth.auth()?.signOut() } catch let err {

@@ -28,6 +28,7 @@
 		C1B0A1071EFC70EA003BEE91 /* cableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A1061EFC70EA003BEE91 /* cableUITests.swift */; };
 		C1B0A1161EFC74AF003BEE91 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A1151EFC74AF003BEE91 /* Extensions.swift */; };
 		C1CA2A171F1401750016BD3B /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA2A161F1401750016BD3B /* ChatLogController.swift */; };
+		C1CA2A191F1416F20016BD3B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA2A181F1416F20016BD3B /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		C1B0A1081EFC70EA003BEE91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1B0A1151EFC74AF003BEE91 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C1CA2A161F1401750016BD3B /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
+		C1CA2A181F1416F20016BD3B /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C4A6C75A2D90774055CF2FEC /* Pods-cable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cable.release.xcconfig"; path = "Pods/Target Support Files/Pods-cable/Pods-cable.release.xcconfig"; sourceTree = "<group>"; };
 		F0666204C43542E1E25A7C34 /* Pods_cableTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cableTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				C1A450131F00D38B00ED066C /* User.swift */,
+				C1CA2A181F1416F20016BD3B /* Message.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				C116A20B1F035D89002C8531 /* AccountController.swift in Sources */,
 				C16FF73B1EFDF4BC00136C4B /* HomeCell.swift in Sources */,
 				C1AD8A361F04050400D2DF7A /* NewMessageController+handlers.swift in Sources */,
+				C1CA2A191F1416F20016BD3B /* Message.swift in Sources */,
 				C1AD8A341F04044F00D2DF7A /* AccountCell.swift in Sources */,
 				C1A450141F00D38B00ED066C /* User.swift in Sources */,
 			);

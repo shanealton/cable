@@ -79,7 +79,7 @@ extension LoginController {
       guard let uid = user?.uid else { return }
       
       //successfully authenticated user
-      let ref = FIRDatabase.database().reference(fromURL: "https://cable-610b1.firebaseio.com/")
+      let ref = FIRDatabase.database().reference()
       let usersReference = ref.child("users").child(uid)
       let values = ["name": name, "email": email]
       usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in

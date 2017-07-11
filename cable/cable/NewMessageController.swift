@@ -31,7 +31,7 @@ class NewMessageController: UICollectionViewController, UICollectionViewDelegate
   }
   
   fileprivate func setupCollectionView() {
-    self.collectionView?.register(NewMessageCell.self, forCellWithReuseIdentifier: cellId)
+    self.collectionView?.register(UserCell.self, forCellWithReuseIdentifier: cellId)
     collectionView?.backgroundColor = .white
   }
   
@@ -44,7 +44,7 @@ class NewMessageController: UICollectionViewController, UICollectionViewDelegate
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! NewMessageCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserCell
     let user = users[indexPath.item]
     cell.nameLabel.text = user.name
     cell.detailLabel.text = user.email

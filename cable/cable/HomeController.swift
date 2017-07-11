@@ -37,7 +37,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   fileprivate func setupCollectionView() {
-    self.collectionView?.register(HomeCell.self, forCellWithReuseIdentifier: "cellId")
+    self.collectionView?.register(UserCell.self, forCellWithReuseIdentifier: "cellId")
     collectionView?.backgroundColor = .white
   }
   
@@ -46,13 +46,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: view.frame.width, height: 50)
+    return CGSize(width: view.frame.width, height: 75)
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserCell
     let message = messages[indexPath.item]
-    cell.messageText.text = message.text
+    cell.message = message
     return cell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
   }
 }

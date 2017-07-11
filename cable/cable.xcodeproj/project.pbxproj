@@ -11,14 +11,13 @@
 		C116A2081F032BE5002C8531 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116A2071F032BE5002C8531 /* LoginController+handlers.swift */; };
 		C116A20B1F035D89002C8531 /* AccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116A20A1F035D89002C8531 /* AccountController.swift */; };
 		C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FF7371EFD98BA00136C4B /* LoginController.swift */; };
-		C16FF73B1EFDF4BC00136C4B /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */; };
 		C16FF73D1EFF1CEC00136C4B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C16FF73C1EFF1CEC00136C4B /* GoogleService-Info.plist */; };
+		C177D3F41F150B6600AD9CD3 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C177D3F31F150B6600AD9CD3 /* UserCell.swift */; };
 		C1A450111F00CE1500ED066C /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A450101F00CE1500ED066C /* NewMessageController.swift */; };
 		C1A450141F00D38B00ED066C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A450131F00D38B00ED066C /* User.swift */; };
 		C1AD8A321F03FFEE00D2DF7A /* AccountController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AD8A311F03FFEE00D2DF7A /* AccountController+handlers.swift */; };
 		C1AD8A341F04044F00D2DF7A /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AD8A331F04044F00D2DF7A /* AccountCell.swift */; };
 		C1AD8A361F04050400D2DF7A /* NewMessageController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AD8A351F04050400D2DF7A /* NewMessageController+handlers.swift */; };
-		C1AD8A381F04062A00D2DF7A /* NewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AD8A371F04062A00D2DF7A /* NewMessageCell.swift */; };
 		C1AD8A3A1F0412D200D2DF7A /* HomeController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1AD8A391F0412D200D2DF7A /* HomeController+handlers.swift */; };
 		C1B0A0E71EFC70EA003BEE91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A0E61EFC70EA003BEE91 /* AppDelegate.swift */; };
 		C1B0A0E91EFC70EA003BEE91 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0A0E81EFC70EA003BEE91 /* HomeController.swift */; };
@@ -55,14 +54,13 @@
 		C116A2071F032BE5002C8531 /* LoginController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		C116A20A1F035D89002C8531 /* AccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountController.swift; sourceTree = "<group>"; };
 		C16FF7371EFD98BA00136C4B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		C16FF73C1EFF1CEC00136C4B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C177D3F31F150B6600AD9CD3 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		C1A450101F00CE1500ED066C /* NewMessageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		C1A450131F00D38B00ED066C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C1AD8A311F03FFEE00D2DF7A /* AccountController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AccountController+handlers.swift"; sourceTree = "<group>"; };
 		C1AD8A331F04044F00D2DF7A /* AccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		C1AD8A351F04050400D2DF7A /* NewMessageController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NewMessageController+handlers.swift"; sourceTree = "<group>"; };
-		C1AD8A371F04062A00D2DF7A /* NewMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMessageCell.swift; sourceTree = "<group>"; };
 		C1AD8A391F0412D200D2DF7A /* HomeController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HomeController+handlers.swift"; sourceTree = "<group>"; };
 		C1B0A0E31EFC70EA003BEE91 /* cable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1B0A0E61EFC70EA003BEE91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,9 +151,8 @@
 		C16FF7391EFDF4AB00136C4B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C16FF73A1EFDF4BC00136C4B /* HomeCell.swift */,
-				C1AD8A371F04062A00D2DF7A /* NewMessageCell.swift */,
 				C1AD8A331F04044F00D2DF7A /* AccountCell.swift */,
+				C177D3F31F150B6600AD9CD3 /* UserCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -440,14 +437,13 @@
 				C1B0A0E91EFC70EA003BEE91 /* HomeController.swift in Sources */,
 				C1AD8A3A1F0412D200D2DF7A /* HomeController+handlers.swift in Sources */,
 				C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */,
+				C177D3F41F150B6600AD9CD3 /* UserCell.swift in Sources */,
 				C1AD8A321F03FFEE00D2DF7A /* AccountController+handlers.swift in Sources */,
-				C1AD8A381F04062A00D2DF7A /* NewMessageCell.swift in Sources */,
 				C116A2081F032BE5002C8531 /* LoginController+handlers.swift in Sources */,
 				C1A450111F00CE1500ED066C /* NewMessageController.swift in Sources */,
 				C1B0A1161EFC74AF003BEE91 /* Extensions.swift in Sources */,
 				C1B0A0E71EFC70EA003BEE91 /* AppDelegate.swift in Sources */,
 				C116A20B1F035D89002C8531 /* AccountController.swift in Sources */,
-				C16FF73B1EFDF4BC00136C4B /* HomeCell.swift in Sources */,
 				C1AD8A361F04050400D2DF7A /* NewMessageController+handlers.swift in Sources */,
 				C1CA2A191F1416F20016BD3B /* Message.swift in Sources */,
 				C1AD8A341F04044F00D2DF7A /* AccountCell.swift in Sources */,

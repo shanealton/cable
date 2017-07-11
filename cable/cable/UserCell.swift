@@ -1,14 +1,29 @@
 //
-//  NewMessageCell.swift
+//  UserCell.swift
 //  cable
 //
-//  Created by Shane Alton on 6/28/17.
+//  Created by Shane Alton on 7/11/17.
 //  Copyright © 2017 Shane Alton. All rights reserved.
 //
 
 import UIKit
+import Firebase
 
-class NewMessageCell: BaseCell {
+class UserCell: BaseCell {
+  
+  var message: Message? {
+    didSet {
+      if let toId = message?.toId {
+        let ref = FIRDatabase.database().reference().child("users").child(toId)
+        ref.observe(.value, with: { (snapshot) in
+          if let dictionary = snapshot.value as? [String:AnyObject] {
+            self.nameLabel.text = dictionary["name"] as? String
+          }
+        }, withCancel: nil)
+      }
+      detailLabel.text = message?.text
+    }
+  }
   
   let avatar: UIImageView = {
     let image = UIImageView()
@@ -20,7 +35,6 @@ class NewMessageCell: BaseCell {
   
   let nameLabel: UILabel = {
     let label = UILabel()
-    label.text = "Username"
     label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -28,7 +42,6 @@ class NewMessageCell: BaseCell {
   
   let detailLabel: UILabel = {
     let label = UILabel()
-    label.text = "Email"
     label.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label

@@ -20,8 +20,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     setupNavBar()
     setupCollectionView()
-    
-    observeMessages()
   }
   
   override func viewWillAppear(_ animated: Bool) {

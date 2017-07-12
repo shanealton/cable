@@ -53,7 +53,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     let separatorView: UIView = {
       let view = UIView()
       view.translatesAutoresizingMaskIntoConstraints = false
-      view.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+      view.backgroundColor = UIColor.rgb(red: 235, green: 232, blue: 228)
       return view
     }()
     
@@ -86,7 +86,21 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     let fromId = FIRAuth.auth()!.currentUser!.uid
     let timestamp = Int(NSDate().timeIntervalSince1970)
     let values = ["text": messageInput.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
-    childRef.updateChildValues(values)
+//    childRef.updateChildValues(values)
+    
+    childRef.updateChildValues(values) { (error, ref) in
+      if error != nil {
+        print(error ?? "Error:")
+        return
+      }
+      
+      let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId)
+      let messageId = childRef.key
+      userMessages.updateChildValues([messageId: 1])
+      
+      let recipient = FIRDatabase.database().reference().child("user-messages").child(toId)
+      recipient.updateChildValues([messageId: 1])
+    }
   }
   
   //attach a view to the top of the keyboard

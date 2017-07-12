@@ -57,7 +57,7 @@ extension LoginController {
       print("User Login successful")
       
       // Add a pause to prevent visibility of a previously logged in users messages and info.
-      let when = DispatchTime.now() + 1
+      let when = DispatchTime.now() + 2
       DispatchQueue.main.asyncAfter(deadline: when) {
         self.dismiss(animated: true, completion: nil)
       }

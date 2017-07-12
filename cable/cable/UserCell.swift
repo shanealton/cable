@@ -13,43 +13,55 @@ class UserCell: BaseCell {
   
   var message: Message? {
     didSet {
-      if let toId = message?.toId {
-        let ref = FIRDatabase.database().reference().child("users").child(toId)
-        ref.observe(.value, with: { (snapshot) in
-          if let dictionary = snapshot.value as? [String:AnyObject] {
-            self.nameLabel.text = dictionary["name"] as? String
-          }
-        }, withCancel: nil)
-      }
+      setupNameAndAvatar()
       detailLabel.text = message?.text
       
       if let seconds = message?.timestamp?.doubleValue {
         let timestampAsDate = NSDate(timeIntervalSince1970: seconds)
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.dateFormat = "h:mm a"
         timeLabel.text = dateFormatter.string(from: timestampAsDate as Date)
       }
+    }
+  }
+  
+  private func setupNameAndAvatar() {
+    let chatPartnerId: String?
+    
+    if message?.fromId == FIRAuth.auth()?.currentUser?.uid {
+      chatPartnerId = message?.toId
+    } else {
+      chatPartnerId = message?.fromId
+    }
+    
+    if let id = chatPartnerId {
+      let ref = FIRDatabase.database().reference().child("users").child(id)
+      ref.observe(.value, with: { (snapshot) in
+        if let dictionary = snapshot.value as? [String:AnyObject] {
+          self.nameLabel.text = dictionary["name"] as? String
+        }
+      }, withCancel: nil)
     }
   }
   
   let avatar: UIImageView = {
     let image = UIImageView()
     image.backgroundColor = .rgb(red: 235, green: 232, blue: 228)
-    image.layer.cornerRadius = 22.5
+    image.layer.cornerRadius = 20
     image.translatesAutoresizingMaskIntoConstraints = false
     return image
   }()
   
   let nameLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont.systemFont(ofSize: 16, weight: UIFontWeightMedium)
+    label.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightMedium)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
   
   let detailLabel: UILabel = {
     let label = UILabel()
-    label.textColor = .rgb(red: 151, green: 153, blue: 154)
+    label.textColor = .rgb(red: 174, green: 174, blue: 174)
     label.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -57,8 +69,7 @@ class UserCell: BaseCell {
   
   let timeLabel: UILabel = {
     let label = UILabel()
-    label.text = "Yesterday"
-    label.textColor = .rgb(red: 151, green: 153, blue: 154)
+    label.textColor = .rgb(red: 174, green: 174, blue: 174)
     label.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightLight)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -89,7 +100,7 @@ class UserCell: BaseCell {
   
   func setupAvatar() {
     avatar.anchorCenterYToSuperview()
-    avatar.anchor(left: leftAnchor, leftConstant: 18, widthConstant: 45, heightConstant: 45)
+    avatar.anchor(left: leftAnchor, leftConstant: 18, widthConstant: 40, heightConstant: 40)
   }
   
   func setupName() {
@@ -97,7 +108,7 @@ class UserCell: BaseCell {
   }
   
   func setupDetail() {
-    detailLabel.anchor(nameLabel.bottomAnchor, left: avatar.rightAnchor, topConstant: 5, leftConstant: 15)
+    detailLabel.anchor(nameLabel.bottomAnchor, left: avatar.rightAnchor, topConstant: 4, leftConstant: 15)
   }
   
   func setupTimeLabel() {
@@ -106,6 +117,6 @@ class UserCell: BaseCell {
   }
   
   func setupSeparator() {
-    separator.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 78, heightConstant: 0.75)
+    separator.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 73, heightConstant: 0.75)
   }
 }

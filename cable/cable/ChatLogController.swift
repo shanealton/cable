@@ -12,10 +12,36 @@ import Firebase
 class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
   
   private let cellId = "cellId"
+  var messages = [Message]()
   var user: User? {
     didSet {
       navigationItem.title = user?.name
+      observeConversation()
     }
+  }
+  
+  func observeConversation() {
+    guard let uid = FIRAuth.auth()?.currentUser?.uid else { return }
+    let userMessages = FIRDatabase.database().reference().child("user-messages").child(uid)
+    userMessages.observe(.childAdded, with: { (snapshot) in
+      let messageId = snapshot.key
+      let messagesRef = FIRDatabase.database().reference().child("messages").child(messageId)
+      messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+        guard let dictionary = snapshot.value as? [String:AnyObject] else { return }
+        let message = Message()
+        message.setValuesForKeys(dictionary)
+        
+        if message.chatPartnerId() == self.user?.id {
+         self.messages.append(message)
+          DispatchQueue.main.async(execute: {
+            self.collectionView?.reloadData()
+          })
+        }
+        
+      }, withCancel: nil)
+      
+      
+    }, withCancel: nil)
   }
   
   override func viewDidLoad() {
@@ -86,7 +112,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     let fromId = FIRAuth.auth()!.currentUser!.uid
     let timestamp = Int(NSDate().timeIntervalSince1970)
     let values = ["text": messageInput.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
-//    childRef.updateChildValues(values)
     
     childRef.updateChildValues(values) { (error, ref) in
       if error != nil {
@@ -94,6 +119,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         return
       }
       
+      self.messageInput.text = nil
       let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId)
       let messageId = childRef.key
       userMessages.updateChildValues([messageId: 1])
@@ -122,11 +148,12 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   
   fileprivate func setupCollectionView() {
     self.collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellId)
+    collectionView?.alwaysBounceVertical = true
     collectionView?.backgroundColor = .white
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 1
+    return messages.count
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -135,6 +162,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatCell
+    let message = self.messages[indexPath.item]
+    cell.messageText.text = message.text
     return cell
   }
   
@@ -145,8 +174,23 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
 
 class ChatCell: BaseCell {
   
+  let messageText: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
   override func setupViews() {
     super.setupViews()
     
+    addSubview(messageText)
+    
+    setupMessage()
+  }
+  
+  func setupMessage() {
+    messageText.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    messageText.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
+    messageText.rightAnchor.constraint(equalTo: centerXAnchor, constant: -10).isActive = true
   }
 }

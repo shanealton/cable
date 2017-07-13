@@ -55,6 +55,22 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     return cell
   }
   
+  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let message = messages[indexPath.item]
+    
+    guard let chatPartnerId = message.chatPartnerId() else { return }
+    let ref = FIRDatabase.database().reference().child("users").child(chatPartnerId)
+    
+    ref.observeSingleEvent(of: .value, with: { (snapshot) in
+      guard let dictionary = snapshot.value as? [String:AnyObject] else { return }
+      let user = User()
+      user.id = chatPartnerId
+      user.setValuesForKeys(dictionary)
+      self.showConversation(user)
+    }, withCancel: nil)
+
+  }
+  
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }

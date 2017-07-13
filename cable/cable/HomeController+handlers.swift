@@ -82,6 +82,12 @@ extension HomeController {
     present(UINavigationController(rootViewController: newMessageController), animated: true, completion: nil)
   }
   
+  func showConversation(_ user: User) {
+    let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+    chatLogController.user = user
+    navigationController?.pushViewController(chatLogController, animated: true)
+  }
+  
   //Chat log controller
   func handleChatLog(user: User) {
     let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())

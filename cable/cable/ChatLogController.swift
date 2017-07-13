@@ -37,10 +37,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
             self.collectionView?.reloadData()
           })
         }
-        
       }, withCancel: nil)
-      
-      
     }, withCancel: nil)
   }
   
@@ -49,6 +46,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     setupNavBar()
     setupCollectionView()
+  }
+  
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    
+    coordinator.animate(alongsideTransition: { (context) in
+      self.collectionView?.collectionViewLayout.invalidateLayout()
+    }, completion: nil)
   }
   
   lazy var messageInput: UITextField = {
@@ -148,6 +153,9 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   
   fileprivate func setupCollectionView() {
     self.collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellId)
+    //Add margins to collectionview to compensate for input area and chat bubbles. Also, adjusting scroll indicator insets to match new margins.
+    collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 58, 0)
+    collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0)
     collectionView?.alwaysBounceVertical = true
     collectionView?.backgroundColor = .white
   }
@@ -157,40 +165,79 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: view.frame.width, height: 75)
+    var height: CGFloat = 80
+    
+    // Dynamic height for chat bubbles
+    if let text = messages[indexPath.item].text {
+      height = estimateFrameForMessage(text: text).height + 18
+    }
+    
+    return CGSize(width: view.frame.width, height: height)
+  }
+  
+  fileprivate func estimateFrameForMessage(text: String) -> CGRect {
+    let size = CGSize(width: 200, height: 1000)
+    let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+    
+    return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 15)], context: nil)
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatCell
     let message = self.messages[indexPath.item]
     cell.messageText.text = message.text
+    
+    //ISSUE REMINDER: Dynamic chat bubble width. Magic number compensates for text field.
+    cell.chatBubbleWidthAnchor?.constant = estimateFrameForMessage(text: message.text!).width + 31
+    
     return cell
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 0
   }
 }
 
 class ChatCell: BaseCell {
   
-  let messageText: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
+  var chatBubbleWidthAnchor: NSLayoutConstraint?
+  
+  let messageText: UITextView = {
+    let text = UITextView()
+    text.backgroundColor = .clear
+    text.textColor = .white
+    text.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
+    text.translatesAutoresizingMaskIntoConstraints = false
+    return text
+  }()
+  
+  let chatBubble: UIView = {
+    let view = UIView()
+    view.layer.cornerRadius = 18
+    view.backgroundColor = .rgb(red: 130, green: 122, blue: 210)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
   }()
   
   override func setupViews() {
     super.setupViews()
     
-    addSubview(messageText)
+    addSubview(chatBubble)
     
+    setupChatBubble()
+  }
+  
+  func setupChatBubble() {
+    chatBubble.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    chatBubbleWidthAnchor = chatBubble.widthAnchor.constraint(equalToConstant: 200)
+    chatBubbleWidthAnchor?.isActive = true
+    chatBubble.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+    chatBubble.rightAnchor.constraint(equalTo: rightAnchor, constant: -18).isActive = true
+    
+    chatBubble.addSubview(messageText)
     setupMessage()
   }
   
   func setupMessage() {
-    messageText.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    messageText.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
-    messageText.rightAnchor.constraint(equalTo: centerXAnchor, constant: -10).isActive = true
+    messageText.topAnchor.constraint(equalTo: chatBubble.topAnchor).isActive = true
+    messageText.leftAnchor.constraint(equalTo: chatBubble.leftAnchor, constant: 10).isActive = true
+    messageText.rightAnchor.constraint(equalTo: chatBubble.rightAnchor, constant: -10).isActive = true
+    messageText.heightAnchor.constraint(equalTo: chatBubble.heightAnchor).isActive = true
   }
 }

@@ -29,6 +29,7 @@
 		C1CA2A171F1401750016BD3B /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA2A161F1401750016BD3B /* ChatLogController.swift */; };
 		C1CA2A191F1416F20016BD3B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CA2A181F1416F20016BD3B /* Message.swift */; };
 		C1F7393A1F18153F00235CF7 /* ChatLogController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F739391F18153F00235CF7 /* ChatLogController+handlers.swift */; };
+		C1F7393C1F1816CD00235CF7 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F7393B1F1816CD00235CF7 /* ChatCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		C1CA2A161F1401750016BD3B /* ChatLogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		C1CA2A181F1416F20016BD3B /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C1F739391F18153F00235CF7 /* ChatLogController+handlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatLogController+handlers.swift"; sourceTree = "<group>"; };
+		C1F7393B1F1816CD00235CF7 /* ChatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		C4A6C75A2D90774055CF2FEC /* Pods-cable.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cable.release.xcconfig"; path = "Pods/Target Support Files/Pods-cable/Pods-cable.release.xcconfig"; sourceTree = "<group>"; };
 		F0666204C43542E1E25A7C34 /* Pods_cableTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cableTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 			children = (
 				C1AD8A331F04044F00D2DF7A /* AccountCell.swift */,
 				C177D3F31F150B6600AD9CD3 /* UserCell.swift */,
+				C1F7393B1F1816CD00235CF7 /* ChatCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				C1CA2A171F1401750016BD3B /* ChatLogController.swift in Sources */,
 				C1B0A0E91EFC70EA003BEE91 /* HomeController.swift in Sources */,
 				C1AD8A3A1F0412D200D2DF7A /* HomeController+handlers.swift in Sources */,
+				C1F7393C1F1816CD00235CF7 /* ChatCell.swift in Sources */,
 				C16FF7381EFD98BA00136C4B /* LoginController.swift in Sources */,
 				C177D3F41F150B6600AD9CD3 /* UserCell.swift in Sources */,
 				C1AD8A321F03FFEE00D2DF7A /* AccountController+handlers.swift in Sources */,

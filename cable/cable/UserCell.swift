@@ -100,11 +100,11 @@ class UserCell: BaseCell {
   }
   
   func setupDetail() {
-    detailLabel.anchor(nameLabel.bottomAnchor, left: avatar.rightAnchor, topConstant: 4, leftConstant: 15)
+    detailLabel.anchor(nameLabel.bottomAnchor, left: avatar.rightAnchor, right: rightAnchor, topConstant: 4, leftConstant: 15, rightConstant: 18)
   }
   
   func setupTimeLabel() {
-    timeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 17).isActive = true
+    timeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
     timeLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -18).isActive = true
   }
   

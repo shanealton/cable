@@ -20,32 +20,23 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }
   }
   
-  func observeConversation() {
-    guard let uid = FIRAuth.auth()?.currentUser?.uid else { return }
-    let userMessages = FIRDatabase.database().reference().child("user-messages").child(uid)
-    userMessages.observe(.childAdded, with: { (snapshot) in
-      let messageId = snapshot.key
-      let messagesRef = FIRDatabase.database().reference().child("messages").child(messageId)
-      messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
-        guard let dictionary = snapshot.value as? [String:AnyObject] else { return }
-        let message = Message()
-        message.setValuesForKeys(dictionary)
-        
-        if message.chatPartnerId() == self.user?.id {
-         self.messages.append(message)
-          DispatchQueue.main.async(execute: {
-            self.collectionView?.reloadData()
-          })
-        }
-      }, withCancel: nil)
-    }, withCancel: nil)
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     setupNavBar()
     setupCollectionView()
+  }
+  
+  fileprivate func setupNavBar() {
+    self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 130, green: 122, blue: 210)
+  }
+  
+  fileprivate func setupCollectionView() {
+    self.collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellId)
+    collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 58, 0)
+    collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0)
+    collectionView?.alwaysBounceVertical = true
+    collectionView?.backgroundColor = .white
   }
   
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -56,6 +47,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }, completion: nil)
   }
   
+  // Chat/message text input component with sticky keyboard.
   lazy var messageInput: UITextField = {
     let message = UITextField()
     message.placeholder = "Type a message..."
@@ -65,13 +57,12 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     return message
   }()
   
-  // Chat/message text input component with sticky keyboard.
   lazy var inputContainerView: UIView = {
     let container = UIView()
     container.translatesAutoresizingMaskIntoConstraints = false
     container.backgroundColor = .white
     container.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
-    
+
     let sendButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitle("Send", for: .normal)
@@ -110,55 +101,11 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     return container
   }()
   
-  func handleSend() {
-    let ref = FIRDatabase.database().reference().child("messages")
-    let childRef = ref.childByAutoId()
-    let toId = user!.id!
-    let fromId = FIRAuth.auth()!.currentUser!.uid
-    let timestamp = Int(NSDate().timeIntervalSince1970)
-    let values = ["text": messageInput.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
-    
-    childRef.updateChildValues(values) { (error, ref) in
-      if error != nil {
-        print(error ?? "Error:")
-        return
-      }
-      
-      self.messageInput.text = nil
-      let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId)
-      let messageId = childRef.key
-      userMessages.updateChildValues([messageId: 1])
-      
-      let recipient = FIRDatabase.database().reference().child("user-messages").child(toId)
-      recipient.updateChildValues([messageId: 1])
-    }
-  }
-  
-  //attach a view to the top of the keyboard
   override var inputAccessoryView: UIView? {
     get{ return inputContainerView }
   }
   
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    handleSend()
-    return true
-  }
- 
-  //need this for attaching view to keyboard
   override var canBecomeFirstResponder: Bool { return true }
-  
-  fileprivate func setupNavBar() {
-    self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 130, green: 122, blue: 210)
-  }
-  
-  fileprivate func setupCollectionView() {
-    self.collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellId)
-    //Add margins to collectionview to compensate for input area and chat bubbles. Also, adjusting scroll indicator insets to match new margins.
-    collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 58, 0)
-    collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0)
-    collectionView?.alwaysBounceVertical = true
-    collectionView?.backgroundColor = .white
-  }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return messages.count
@@ -186,10 +133,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatCell
     let message = self.messages[indexPath.item]
     cell.messageText.text = message.text
-    
-    //ISSUE REMINDER: Dynamic chat bubble width. Magic number compensates for text field.
     cell.chatBubbleWidthAnchor?.constant = estimateFrameForMessage(text: message.text!).width + 31
-    
     return cell
   }
 }

@@ -34,7 +34,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   fileprivate func setupCollectionView() {
     self.collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellId)
     collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 58, 0)
-    collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 50, 0)
+    collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
     collectionView?.alwaysBounceVertical = true
     collectionView?.backgroundColor = .white
   }

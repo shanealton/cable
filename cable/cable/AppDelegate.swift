@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.makeKeyAndVisible()
     
     UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+    UIApplication.shared.statusBarView?.backgroundColor = .white
+    UINavigationBar.appearance().backgroundColor = .white
     
     let layout = UICollectionViewFlowLayout()
     let homeController = HomeController(collectionViewLayout: layout)

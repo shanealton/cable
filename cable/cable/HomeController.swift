@@ -14,6 +14,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   private let cellId = "cellId"
   var messages = [Message]()
   var messagesDictionary = [String:Message] ()
+  var timer: Timer?
   
   override func viewDidLoad() {
     super.viewDidLoad()

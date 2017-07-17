@@ -13,8 +13,8 @@ extension ChatLogController {
   
   // Fetch conversation
   func observeConversation() {
-    guard let uid = FIRAuth.auth()?.currentUser?.uid else { return }
-    let userMessages = FIRDatabase.database().reference().child("user-messages").child(uid)
+    guard let uid = FIRAuth.auth()?.currentUser?.uid, let toId = user?.id else { return }
+    let userMessages = FIRDatabase.database().reference().child("user-messages").child(uid).child(toId)
     userMessages.observe(.childAdded, with: { (snapshot) in
       let messageId = snapshot.key
       let messagesRef = FIRDatabase.database().reference().child("messages").child(messageId)
@@ -23,12 +23,10 @@ extension ChatLogController {
         let message = Message()
         message.setValuesForKeys(dictionary)
         
-        if message.chatPartnerId() == self.user?.id {
-          self.messages.append(message)
-          DispatchQueue.main.async(execute: {
-            self.collectionView?.reloadData()
-          })
-        }
+        self.messages.append(message)
+        DispatchQueue.main.async(execute: {
+          self.collectionView?.reloadData()
+        })
       }, withCancel: nil)
     }, withCancel: nil)
   }
@@ -49,11 +47,11 @@ extension ChatLogController {
       }
       
       self.messageInput.text = nil
-      let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId)
+      let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId).child(toId)
       let messageId = childRef.key
       userMessages.updateChildValues([messageId: 1])
       
-      let recipient = FIRDatabase.database().reference().child("user-messages").child(toId)
+      let recipient = FIRDatabase.database().reference().child("user-messages").child(toId).child(fromId)
       recipient.updateChildValues([messageId: 1])
     }
   }

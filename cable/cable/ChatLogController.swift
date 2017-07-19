@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   private let cellId = "cellId"
   var messages = [Message]()
@@ -36,6 +36,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 58, 0)
     collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
     collectionView?.alwaysBounceVertical = true
+    collectionView?.keyboardDismissMode = .interactive
     collectionView?.backgroundColor = .white
   }
   
@@ -63,6 +64,15 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     container.backgroundColor = .white
     container.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
 
+    let uploadImage: UIImageView = {
+      let image = UIImageView()
+      image.image = UIImage(named: "upload_image_icon")
+      image.translatesAutoresizingMaskIntoConstraints = false
+      return image
+    }()
+    uploadImage.isUserInteractionEnabled = true
+    uploadImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleImage)))
+    
     let sendButton: UIButton = {
       let button = UIButton(type: .system)
       button.setTitle("Send", for: .normal)
@@ -79,16 +89,22 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
       return view
     }()
     
+    container.addSubview(uploadImage)
     container.addSubview(separatorView)
     container.addSubview(sendButton)
     container.addSubview(self.messageInput)
+    
+    uploadImage.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
+    uploadImage.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 5).isActive = true
+    uploadImage.widthAnchor.constraint(equalToConstant: 44).isActive = true
+    uploadImage.heightAnchor.constraint(equalToConstant: 44).isActive = true
     
     sendButton.rightAnchor.constraint(equalTo: container.rightAnchor).isActive = true
     sendButton.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
     sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
     sendButton.heightAnchor.constraint(equalTo: container.heightAnchor).isActive = true
     
-    self.messageInput.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 16).isActive = true
+    self.messageInput.leftAnchor.constraint(equalTo: uploadImage.rightAnchor, constant: 8).isActive = true
     self.messageInput.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
     self.messageInput.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
     self.messageInput.heightAnchor.constraint(equalTo: container.heightAnchor).isActive = true
@@ -100,6 +116,22 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     return container
   }()
+  
+  func handleImage() {
+    let imagePickerController = UIImagePickerController()
+    imagePickerController.allowsEditing = true
+    imagePickerController.delegate = self
+    present(imagePickerController, animated: true, completion: nil)
+    print("upload image")
+  }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    print(123)
+  }
   
   override var inputAccessoryView: UIView? {
     get{ return inputContainerView }

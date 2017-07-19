@@ -48,7 +48,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     }, completion: nil)
   }
   
-  // Chat/message text input component with sticky keyboard.
   lazy var messageInput: UITextField = {
     let message = UITextField()
     message.placeholder = "Type a message..."
@@ -122,15 +121,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     imagePickerController.allowsEditing = true
     imagePickerController.delegate = self
     present(imagePickerController, animated: true, completion: nil)
-    print("upload image")
+  }
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    dismiss(animated: true, completion: nil)
   }
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     dismiss(animated: true, completion: nil)
-  }
-  
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    print(123)
   }
   
   override var inputAccessoryView: UIView? {
@@ -146,15 +144,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     var height: CGFloat = 80
     
-    // Dynamic height for chat bubbles
     if let text = messages[indexPath.item].text {
-      height = estimateFrameForMessage(text: text).height + 18
+      height = estimateFrameForMessage(text).height + 18
     }
     
     return CGSize(width: view.frame.width, height: height)
   }
   
-  fileprivate func estimateFrameForMessage(text: String) -> CGRect {
+  fileprivate func estimateFrameForMessage(_ text: String) -> CGRect {
     let size = CGSize(width: 200, height: 1000)
     let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
     
@@ -165,7 +162,28 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatCell
     let message = self.messages[indexPath.item]
     cell.messageText.text = message.text
-    cell.chatBubbleWidthAnchor?.constant = estimateFrameForMessage(text: message.text!).width + 31
+    
+    setupCell(cell: cell, message: message)
+    
+    if let text = message.text {
+      cell.chatBubbleWidthAnchor?.constant = estimateFrameForMessage(text).width + 31
+    }
     return cell
+  }
+  
+  fileprivate func setupCell(cell: ChatCell, message: Message) {
+    if message.fromId == FIRAuth.auth()?.currentUser?.uid {
+      cell.chatBubble.backgroundColor = UIColor.rgb(red: 130, green: 122, blue: 210)
+      cell.messageText.textColor = .white
+      
+      cell.chatBubbleRightAnchor?.isActive = true
+      cell.chatBubbleLeftAnchor?.isActive = false
+    } else {
+      cell.chatBubble.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+      cell.messageText.textColor = .black
+      
+      cell.chatBubbleRightAnchor?.isActive = false
+      cell.chatBubbleLeftAnchor?.isActive = true
+    }
   }
 }

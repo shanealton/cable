@@ -11,6 +11,8 @@ import UIKit
 class ChatCell: BaseCell {
   
   var chatBubbleWidthAnchor: NSLayoutConstraint?
+  var chatBubbleRightAnchor: NSLayoutConstraint?
+  var chatBubbleLeftAnchor:  NSLayoutConstraint?
   
   let messageText: UITextView = {
     let text = UITextView()
@@ -33,17 +35,21 @@ class ChatCell: BaseCell {
     super.setupViews()
     
     addSubview(chatBubble)
-    
     setupChatBubble()
   }
   
   func setupChatBubble() {
     chatBubble.topAnchor.constraint(equalTo: topAnchor).isActive = true
+    chatBubble.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+    
     chatBubbleWidthAnchor = chatBubble.widthAnchor.constraint(equalToConstant: 200)
     chatBubbleWidthAnchor?.isActive = true
-    chatBubble.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-    chatBubble.rightAnchor.constraint(equalTo: rightAnchor, constant: -18).isActive = true
     
+    chatBubbleRightAnchor = chatBubble.rightAnchor.constraint(equalTo: rightAnchor, constant: -18)
+    chatBubbleRightAnchor?.isActive = true
+    
+    chatBubbleLeftAnchor = chatBubble.leftAnchor.constraint(equalTo: leftAnchor, constant: 18)
+
     chatBubble.addSubview(messageText)
     setupMessage()
   }

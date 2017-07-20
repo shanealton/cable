@@ -25,6 +25,23 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     setupNavBar()
     setupCollectionView()
+    setupKeyboardObservers()
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  fileprivate func setupKeyboardObservers() {
+    NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+  }
+  
+  func handleKeyboardDidShow() {
+    if messages.count > 0 {
+      let indexPath = NSIndexPath(item: messages.count - 1, section: 0) as IndexPath
+      collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
+    }
   }
   
   fileprivate func setupNavBar() {

@@ -20,10 +20,7 @@ extension ChatLogController {
       let messagesRef = FIRDatabase.database().reference().child("messages").child(messageId)
       messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
         guard let dictionary = snapshot.value as? [String:AnyObject] else { return }
-        let message = Message()
-        message.setValuesForKeys(dictionary)
-        
-        self.messages.append(message)
+        self.messages.append(Message(dictionary: dictionary))
         DispatchQueue.main.async(execute: {
           self.collectionView?.reloadData()
         })

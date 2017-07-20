@@ -20,6 +20,7 @@ class ChatCell: BaseCell {
     text.textColor = .white
     text.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)
     text.translatesAutoresizingMaskIntoConstraints = false
+    text.isEditable = false
     return text
   }()
   

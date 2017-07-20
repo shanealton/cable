@@ -33,7 +33,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   
   fileprivate func setupCollectionView() {
     self.collectionView?.register(ChatCell.self, forCellWithReuseIdentifier: cellId)
-    collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 58, 0)
+    collectionView?.contentInset = UIEdgeInsetsMake(18, 0, 18, 0)
     collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
     collectionView?.alwaysBounceVertical = true
     collectionView?.keyboardDismissMode = .interactive
@@ -150,7 +150,7 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     if let text = message.text {
       cell.chatBubbleWidthAnchor?.constant = estimateFrameForMessage(text).width + 31
     } else if message.imageUrl != nil {
-      cell.chatBubbleWidthAnchor?.constant = 200
+      cell.chatBubbleWidthAnchor?.constant = 220
     }
     return cell
   }

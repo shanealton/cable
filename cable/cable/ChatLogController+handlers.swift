@@ -22,6 +22,8 @@ extension ChatLogController {
         self.messages.append(Message(dictionary: dictionary))
         DispatchQueue.main.async(execute: {
           self.collectionView?.reloadData()
+          let indexPath = NSIndexPath(item: self.messages.count - 1, section: 0) as IndexPath
+          self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
         })
       }, withCancel: nil)
     }, withCancel: nil)

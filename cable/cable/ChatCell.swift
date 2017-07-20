@@ -31,6 +31,15 @@ class ChatCell: BaseCell {
     return view
   }()
   
+  let messageImageView: UIImageView = {
+    let image = UIImageView()
+    image.translatesAutoresizingMaskIntoConstraints = false
+    image.layer.masksToBounds = true
+    image.layer.cornerRadius = 18
+    image.contentMode = .scaleAspectFill
+    return image
+  }()
+  
   override func setupViews() {
     super.setupViews()
     
@@ -51,7 +60,9 @@ class ChatCell: BaseCell {
     chatBubbleLeftAnchor = chatBubble.leftAnchor.constraint(equalTo: leftAnchor, constant: 18)
 
     chatBubble.addSubview(messageText)
+    chatBubble.addSubview(messageImageView)
     setupMessage()
+    setupMessageImage()
   }
   
   func setupMessage() {
@@ -59,5 +70,12 @@ class ChatCell: BaseCell {
     messageText.leftAnchor.constraint(equalTo: chatBubble.leftAnchor, constant: 10).isActive = true
     messageText.rightAnchor.constraint(equalTo: chatBubble.rightAnchor, constant: -10).isActive = true
     messageText.heightAnchor.constraint(equalTo: chatBubble.heightAnchor).isActive = true
+  }
+  
+  func setupMessageImage() {
+    messageImageView.leftAnchor.constraint(equalTo: chatBubble.leftAnchor).isActive = true
+    messageImageView.topAnchor.constraint(equalTo: chatBubble.topAnchor).isActive = true
+    messageImageView.widthAnchor.constraint(equalTo: chatBubble.widthAnchor).isActive = true
+    messageImageView.heightAnchor.constraint(equalTo: chatBubble.heightAnchor).isActive = true
   }
 }

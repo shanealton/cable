@@ -124,7 +124,65 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    var selectedImageFromPicker: UIImage?
+    
+    if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+      selectedImageFromPicker = editedImage
+    } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+      
+      selectedImageFromPicker = originalImage
+    }
+    
+    if let selectedImage = selectedImageFromPicker {
+      uploadToFirebaseStorageUsingImage(selectedImage)
+    }
+    
     dismiss(animated: true, completion: nil)
+  }
+  
+  
+  fileprivate func uploadToFirebaseStorageUsingImage(_ image: UIImage) {
+    let imageName = UUID().uuidString
+    let ref = FIRStorage.storage().reference().child("message_images").child(imageName)
+    
+    if let uploadData = UIImageJPEGRepresentation(image, 0.2) {
+      ref.put(uploadData, metadata: nil, completion: { (metadata, error) in
+        
+        if error != nil {
+          print("Failed to upload image:", error!)
+          return
+        }
+        
+        if let imageUrl = metadata?.downloadURL()?.absoluteString {
+          self.sendMessageWithImageUrl(imageUrl)
+        }
+      })
+    }
+  }
+  
+  fileprivate func sendMessageWithImageUrl(_ imageUrl: String) {
+    let ref = FIRDatabase.database().reference().child("messages")
+    let childRef = ref.childByAutoId()
+    let toId = user!.id!
+    let fromId = FIRAuth.auth()!.currentUser!.uid
+    let timestamp = Int(Date().timeIntervalSince1970)
+    
+    let values = ["imageUrl": imageUrl, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
+    
+    childRef.updateChildValues(values) { (error, ref) in
+      if error != nil {
+        print(error ?? "Error:")
+        return
+      }
+      
+      self.messageInput.text = nil
+      let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId).child(toId)
+      let messageId = childRef.key
+      userMessages.updateChildValues([messageId: 1])
+      
+      let recipient = FIRDatabase.database().reference().child("user-messages").child(toId).child(fromId)
+      recipient.updateChildValues([messageId: 1])
+    }
   }
   
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -172,6 +230,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   }
   
   fileprivate func setupCell(cell: ChatCell, message: Message) {
+    if let messageImageUrl = message.imageUrl {
+      cell.messageImageView.loadImageUsingCacheWithUrlString(messageImageUrl)
+      cell.messageImageView.isHidden = false
+      cell.chatBubble.backgroundColor = .clear
+    } else {
+      cell.messageImageView.isHidden = true
+    }
+    
     if message.fromId == FIRAuth.auth()?.currentUser?.uid {
       cell.chatBubble.backgroundColor = UIColor.rgb(red: 130, green: 122, blue: 210)
       cell.messageText.textColor = .white

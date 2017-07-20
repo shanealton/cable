@@ -154,20 +154,20 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
         }
         
         if let imageUrl = metadata?.downloadURL()?.absoluteString {
-          self.sendMessageWithImageUrl(imageUrl)
+          self.sendMessageWithImageUrl(imageUrl, image: image)
         }
       })
     }
   }
   
-  fileprivate func sendMessageWithImageUrl(_ imageUrl: String) {
+  fileprivate func sendMessageWithImageUrl(_ imageUrl: String, image: UIImage) {
     let ref = FIRDatabase.database().reference().child("messages")
     let childRef = ref.childByAutoId()
     let toId = user!.id!
     let fromId = FIRAuth.auth()!.currentUser!.uid
     let timestamp = Int(Date().timeIntervalSince1970)
     
-    let values = ["imageUrl": imageUrl, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String : Any]
+    let values = ["toId": toId, "fromId": fromId, "timestamp": timestamp, "imageUrl": imageUrl, "imageWidth": image.size.width, "imageHeight": image.size.height] as [String : Any]
     
     childRef.updateChildValues(values) { (error, ref) in
       if error != nil {
@@ -202,8 +202,12 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     var height: CGFloat = 80
     
-    if let text = messages[indexPath.item].text {
+    let message = messages[indexPath.item]
+    
+    if let text = message.text {
       height = estimateFrameForMessage(text).height + 18
+    } else if let imageWidth = message.imageWidth?.floatValue, let imageHeight = message.imageHeight?.floatValue {
+      height = CGFloat(imageHeight / imageWidth * 200)
     }
     
     return CGSize(width: view.frame.width, height: height)
@@ -225,6 +229,8 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     
     if let text = message.text {
       cell.chatBubbleWidthAnchor?.constant = estimateFrameForMessage(text).width + 31
+    } else if message.imageUrl != nil {
+      cell.chatBubbleWidthAnchor?.constant = 200
     }
     return cell
   }

@@ -116,79 +116,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     return container
   }()
   
-  func handleImage() {
-    let imagePickerController = UIImagePickerController()
-    imagePickerController.allowsEditing = true
-    imagePickerController.delegate = self
-    present(imagePickerController, animated: true, completion: nil)
-  }
-  
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    var selectedImageFromPicker: UIImage?
-    
-    if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-      selectedImageFromPicker = editedImage
-    } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-      
-      selectedImageFromPicker = originalImage
-    }
-    
-    if let selectedImage = selectedImageFromPicker {
-      uploadToFirebaseStorageUsingImage(selectedImage)
-    }
-    
-    dismiss(animated: true, completion: nil)
-  }
-  
-  
-  fileprivate func uploadToFirebaseStorageUsingImage(_ image: UIImage) {
-    let imageName = UUID().uuidString
-    let ref = FIRStorage.storage().reference().child("message_images").child(imageName)
-    
-    if let uploadData = UIImageJPEGRepresentation(image, 0.2) {
-      ref.put(uploadData, metadata: nil, completion: { (metadata, error) in
-        
-        if error != nil {
-          print("Failed to upload image:", error!)
-          return
-        }
-        
-        if let imageUrl = metadata?.downloadURL()?.absoluteString {
-          self.sendMessageWithImageUrl(imageUrl, image: image)
-        }
-      })
-    }
-  }
-  
-  fileprivate func sendMessageWithImageUrl(_ imageUrl: String, image: UIImage) {
-    let ref = FIRDatabase.database().reference().child("messages")
-    let childRef = ref.childByAutoId()
-    let toId = user!.id!
-    let fromId = FIRAuth.auth()!.currentUser!.uid
-    let timestamp = Int(Date().timeIntervalSince1970)
-    
-    let values = ["toId": toId, "fromId": fromId, "timestamp": timestamp, "imageUrl": imageUrl, "imageWidth": image.size.width, "imageHeight": image.size.height] as [String : Any]
-    
-    childRef.updateChildValues(values) { (error, ref) in
-      if error != nil {
-        print(error ?? "Error:")
-        return
-      }
-      
-      self.messageInput.text = nil
-      let userMessages = FIRDatabase.database().reference().child("user-messages").child(fromId).child(toId)
-      let messageId = childRef.key
-      userMessages.updateChildValues([messageId: 1])
-      
-      let recipient = FIRDatabase.database().reference().child("user-messages").child(toId).child(fromId)
-      recipient.updateChildValues([messageId: 1])
-    }
-  }
-  
-  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-    dismiss(animated: true, completion: nil)
-  }
-  
   override var inputAccessoryView: UIView? {
     get{ return inputContainerView }
   }
@@ -213,13 +140,6 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     return CGSize(width: view.frame.width, height: height)
   }
   
-  fileprivate func estimateFrameForMessage(_ text: String) -> CGRect {
-    let size = CGSize(width: 200, height: 1000)
-    let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-    
-    return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 15)], context: nil)
-  }
-  
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatCell
     let message = self.messages[indexPath.item]
@@ -233,6 +153,13 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
       cell.chatBubbleWidthAnchor?.constant = 200
     }
     return cell
+  }
+  
+  fileprivate func estimateFrameForMessage(_ text: String) -> CGRect {
+    let size = CGSize(width: 200, height: 1000)
+    let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+    
+    return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 15)], context: nil)
   }
   
   fileprivate func setupCell(cell: ChatCell, message: Message) {

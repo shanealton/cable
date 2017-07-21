@@ -191,12 +191,14 @@ class ChatLogController: UICollectionViewController, UICollectionViewDelegateFlo
     if message.fromId == FIRAuth.auth()?.currentUser?.uid {
       cell.chatBubble.backgroundColor = UIColor.rgb(red: 130, green: 122, blue: 210)
       cell.messageText.textColor = .white
+      cell.avatar.isHidden = true
       
       cell.chatBubbleRightAnchor?.isActive = true
       cell.chatBubbleLeftAnchor?.isActive = false
     } else {
       cell.chatBubble.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
       cell.messageText.textColor = .black
+      cell.avatar.isHidden = false
       
       cell.chatBubbleRightAnchor?.isActive = false
       cell.chatBubbleLeftAnchor?.isActive = true

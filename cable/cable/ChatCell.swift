@@ -32,6 +32,16 @@ class ChatCell: BaseCell {
     return view
   }()
   
+  let avatar: UIImageView = {
+    let image = UIImageView()
+    image.layer.cornerRadius = 16
+    image.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+    image.layer.masksToBounds = true
+    image.contentMode = .scaleAspectFill
+    image.translatesAutoresizingMaskIntoConstraints = false
+    return image
+  }()
+  
   let messageImageView: UIImageView = {
     let image = UIImageView()
     image.translatesAutoresizingMaskIntoConstraints = false
@@ -44,8 +54,17 @@ class ChatCell: BaseCell {
   override func setupViews() {
     super.setupViews()
     
+    addSubview(avatar)
     addSubview(chatBubble)
+    setupAvatar()
     setupChatBubble()
+  }
+  
+  func setupAvatar() {
+    avatar.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
+    avatar.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    avatar.widthAnchor.constraint(equalToConstant: 32).isActive = true
+    avatar.heightAnchor.constraint(equalToConstant: 32).isActive = true
   }
   
   func setupChatBubble() {
@@ -58,7 +77,7 @@ class ChatCell: BaseCell {
     chatBubbleRightAnchor = chatBubble.rightAnchor.constraint(equalTo: rightAnchor, constant: -18)
     chatBubbleRightAnchor?.isActive = true
     
-    chatBubbleLeftAnchor = chatBubble.leftAnchor.constraint(equalTo: leftAnchor, constant: 18)
+    chatBubbleLeftAnchor = chatBubble.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: 8)
 
     chatBubble.addSubview(messageText)
     chatBubble.addSubview(messageImageView)

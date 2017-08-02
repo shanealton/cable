@@ -69,7 +69,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
       user.setValuesForKeys(dictionary)
       self.showConversation(user)
     }, withCancel: nil)
-
+    
+    let backItem = UIBarButtonItem()
+    backItem.title = "Back"
+    navigationItem.backBarButtonItem = backItem
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

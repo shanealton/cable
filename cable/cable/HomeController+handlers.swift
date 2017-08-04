@@ -107,10 +107,4 @@ extension HomeController {
     chatLogController.user = user
     navigationController?.pushViewController(chatLogController, animated: true)
   }
-  
-  // Present the account settings controller.
-  func handleAccount() {
-    let accountController = AccountController(collectionViewLayout: UICollectionViewFlowLayout())
-    present(UINavigationController(rootViewController: accountController), animated: true, completion: nil)
-  }
 }

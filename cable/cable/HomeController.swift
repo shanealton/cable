@@ -31,9 +31,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   fileprivate func setupNavBar() {
     self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 130, green: 122, blue: 210)
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-    let account = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleAccount))
     let compose = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(handleNewMessage))
-    navigationItem.rightBarButtonItems = [account, compose]
+    navigationItem.rightBarButtonItems = [compose]
   }
   
   fileprivate func setupCollectionView() {
